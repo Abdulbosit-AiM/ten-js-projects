@@ -1,0 +1,116 @@
+/* HEADER PART */
+header {
+    background-color: #616161;
+    min-height: 100px;
+    margin-bottom: 40px;
+    position: fixed;
+    width: 100%;
+}
+
+.header-container {
+    min-height: 100px;
+    max-width: 1024px;
+    margin: 0 auto;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+a {
+    color: white;
+    text-decoration: none;
+}
+.logo a {
+    text-transform: uppercase;
+}
+span {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+nav a{
+    display: inline-block;
+    color: white;
+    padding: 10px 25px;
+    border: 1px solid white;
+    text-decoration: none;
+}
+
+.mob-wrapper {
+    display: none;
+}
+
+
+
+
+/* Tablet View */
+@media (max-width: 768px) {
+    .col {
+        width: 45%;
+    }
+
+    .hide-desktop-only {
+        display: block;
+    }
+
+    header {
+        position: relative;
+    }
+    .header-container {
+        display: flex;
+        padding: 0 5%;
+        text-align: center;
+    }
+    main {
+        padding-top: 0;
+    }
+
+    nav {
+        display: none;
+    }
+    nav a {
+        display: block;
+
+    }
+
+    .logo {
+        padding: 40px 0;
+    }
+
+    .mob-wrapper {
+        display: block;
+    }
+
+    .mob-nav a{
+        color: white;
+        padding: 10px 25px;
+        border: 1px solid white;
+        text-decoration: none;
+        display: block;
+        background-color: #616161;
+    }
+    
+    .mob-nav {
+        display: none;
+        position: absolute;
+        right: 0;
+        width: 100%;
+    }
+    .mob-nav a:hover {
+        background-color: blueviolet;
+        transition-duration: 0.5s;
+    }
+
+
+}
+
+
+/* Mobile View */
+@media (max-width: 400px) {
+    .col {
+        width: 100%;
+    }
+
+    .hide-mobile {
+        display: none;
+    }
+}
