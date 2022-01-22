@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Amaranth:wght@400;700&display=swap');
+/* 
+font-family: 'Amaranth', sans-serif;
+*/
 /* HEADER PART */
 header {
+    font-family: 'Amaranth', sans-serif;
     background-color: #616161;
     min-height: 100px;
     margin-bottom: 40px;
