@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Amaranth:wght@400;700&display=swap');
-/* 
-font-family: 'Amaranth', sans-serif;
-*/
+@import url('https://fonts.googleapis.com/css2?family=Thasadith:wght@400;700&display=swap');
+/* font-family: 'Thasadith', sans-serif; */
+
 /* HEADER PART */
 header {
-    font-family: 'Amaranth', sans-serif;
-    background-color: #616161;
+    font-family: 'Thasadith', sans-serif;
+    font-weight: 700;
+    background-color: #83ad23;
     min-height: 100px;
     margin-bottom: 40px;
     position: fixed;
@@ -27,6 +27,7 @@ a {
 }
 .logo a {
     text-transform: uppercase;
+    font-weight: 400;
 }
 span {
     font-weight: 700;
@@ -39,6 +40,50 @@ nav a{
     border: 1px solid white;
     text-decoration: none;
 }
+
+/* MAIN PART */
+main {
+    min-height: 500px;
+    max-width: 1024px;
+    padding-top: 150px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    font-family: 'Thasadith', sans-serif;
+    font-weight: 400;
+}
+
+.col {
+    width: 30%;
+    background-color: blueviolet;
+    margin-bottom: 40px;
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s ease-in-out;
+}
+.col:hover {
+    box-shadow: 0 0 10px 10px rgba(108, 53, 202, 0.4);
+}
+.col img {
+    width: 100%;
+    height: auto;
+}
+
+.col p {
+    color: white;
+    font-size: 0.825rem;
+    padding: 10px 25px;
+    line-height: 1.25rem;
+}
+
+.col p::first-line{
+    font-weight: 700;
+}
+
+.hide-desktop-only {
+    display: none;
+}
+
 
 .mob-wrapper {
     display: none;
