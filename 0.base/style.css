@@ -84,7 +84,17 @@ main {
     display: none;
 }
 
-
+/* Footer */
+footer {
+    min-height: 150px;
+    max-height: 400px;
+    background-color: #505050;
+}
+.foot-container {
+    width: 1024px;
+    height: 100%;
+    background-color: #efefef;
+}
 
 
 /* Tablet View */
