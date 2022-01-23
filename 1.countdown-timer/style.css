@@ -21,11 +21,11 @@ body {
 h1 {
     font-weight: normal;
     margin-top: 4rem;
-    font-size: 1rem;
+    font-size: 4rem;
     margin-top: -10rem;
 }
 
-.countdown-timer {
+.countdown-container {
     display: flex;
 }
 
