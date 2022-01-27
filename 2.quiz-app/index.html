@@ -13,18 +13,29 @@
 </head>
 <body>
     
-    <h1>Quiz</h1>
-    <div class="quiz-container">
+    <div class="quiz-container" id="quiz">
         <div class="quiz-head">
-            <h2>Question Text</h2>
+            <h2 id="question">Question Text</h2>
             <ul>
-                <li><input type="radio" name="answer" id=""><label for="">answer</label></li>
-                <li><input type="radio" name="answer" id=""><label for="">answer</label></li>
-                <li><input type="radio" name="answer" id=""><label for="">answer</label></li>
-                <li><input type="radio" name="answer" id=""><label for="">answer</label></li>
+                <li>
+                    <input type="radio" class="answer" name="answer" id="a">
+                    <label id="a_text" for="a">answer</label>
+                </li>
+                <li>
+                    <input type="radio" class="answer" name="answer" id="b">
+                    <label id="b_text" for="b">answer</label>
+                </li>
+                <li>
+                    <input type="radio" class="answer" name="answer" id="c">
+                    <label id="c_text" for="c">answer</label>
+                </li>
+                <li>
+                    <input type="radio" class="answer" name="answer" id="d">
+                    <label id="d_text" for="d">answer</label>
+                </li>
             </ul>
         </div>
-        <button>Submit</button>
+        <button id="submit">Submit</button>
     </div>
 
 
