@@ -2,6 +2,9 @@ const mealsEl = document.getElementById('meals')
 const favouriteContainer = document.getElementById('fav-meals')
 const searchTerm = document.getElementById('search-term')
 const searchBtn = document.getElementById('search')
+const mealPopup = document.getElementById('popup-meal')
+const popupCloseBtn = document.getElementById('close-popup')
+const mealInfoEl = document.getElementById('meal-info')
 
 getRandomMeal()
 fetchFavMeals()
@@ -69,6 +72,9 @@ function addMeal(mealData, random = false){
        fetchFavMeals()
     })
 
+    meal.addEventListener('click', () => {
+        showMealInfo(mealData)
+    })
     meals.appendChild(meal)
 }
 
@@ -126,6 +132,10 @@ function addMealFav(mealData){
 
     const btn = favMeal.querySelector('.clear')
 
+    favMeal.addEventListener('click', () => {
+        showMealInfo(mealData)
+    })
+
     btn.addEventListener('click', () => {
         removeMealLS(mealData.idMeal)
 
@@ -133,6 +143,42 @@ function addMealFav(mealData){
     })
 
     favouriteContainer.appendChild(favMeal)
+}
+
+function showMealInfo(mealData) {
+    mealInfoEl.innerHTML = ''
+    const mealEl = document.createElement('div')
+
+    const ingredients = []
+
+    for(let i = 0; i <= 20; i++){
+        if(mealData['strIngredient' + i]){
+            ingredients.push(`
+                ${mealData['strIngredient' + i]} 
+                - ${mealData['strMeasure' + i]} 
+            `)
+        } else { break }
+    }
+
+    mealEl.innerHTML = `
+        <h1>${mealData.strMeal}</h1>
+        <img src="${mealData.strMealThumb}" 
+            alt="${mealData.strMeal}">
+        <p>
+            ${mealData.strInstructions}
+        </p>
+        <h3>Ingredients:</h3>
+        <ul>
+            ${ingredients.map((ing) => `
+                <li>${ing}</li>
+            `).join('')}
+        </ul>
+    `
+  
+
+    mealInfoEl.appendChild(mealEl)
+    // show popup
+    mealPopup.classList.remove('hidden')
 }
 
 searchBtn.addEventListener('click', async () =>{
@@ -147,4 +193,8 @@ searchBtn.addEventListener('click', async () =>{
             addMeal(meal)
         })
     }
+})
+
+popupCloseBtn.addEventListener('click', () => {
+    mealPopup.classList.add('hidden')
 })
