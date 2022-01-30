@@ -37,7 +37,6 @@ function addMeal(mealData, random = false){
         <div class="meal-header">
             ${random ? `<span class="random"> Random Recipe</span>`
             : ''}
-            <!-- Broccoli & Stilton soup -->
             <img src="${mealData.strMealThumb}" 
                 alt="${mealData.strMeal}">
         </div>
@@ -59,6 +58,8 @@ function addMeal(mealData, random = false){
            addMealLS(mealData.idMeal)
            btn.classList.add('active')
        }
+
+       fetchFavMeals()
     })
 
     meals.appendChild(meal)
@@ -76,7 +77,7 @@ function removeMealLS(mealID){
     const mealIDs = getMealLS()
 
     localStorage.setItem(
-        'mealIDS', 
+        'mealIDs', 
         JSON.stringify(mealIDs.filter((id) => id !== mealID))
     )
 }
@@ -97,7 +98,7 @@ async function fetchFavMeals() {
 
     for(let i = 0;i <  mealIDs.length; i++ ){
         const mealID = mealIDs[i]
-        meal = await getMealById(mealID)
+        let meal = await getMealById(mealID)
 
         addMealFav(meal)
     }
