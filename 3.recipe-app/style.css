@@ -155,9 +155,9 @@ header button {
 
 .popup {
     background-color: #fff;
-    max-width: 600px;
+    max-width: 1000px;
     width: 100%;
-    overflow: auto;
+    /* overflow: auto; */
     padding: 0 2rem;
     border-radius: 5px;
     position: relative;
