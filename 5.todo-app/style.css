@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300&family=Rhodium+Libre&display=swap');
+/* 
+font-family: 'Inria Sans', sans-serif;
+font-family: 'Rhodium Libre', serif;
+*/
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    font-family: 'Inria Sans', sans-serif;
+}
