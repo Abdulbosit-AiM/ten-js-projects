@@ -9,4 +9,11 @@ font-family: 'Rhodium Libre', serif;
 body {
     margin: 0;
     font-family: 'Inria Sans', sans-serif;
+    background-color: #efefef;
+}
+h1 {
+    color: #25e70c;
+    font-size: 10rem;
+    text-align: center;
+    opacity: 0.4;
 }
