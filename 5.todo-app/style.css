@@ -14,7 +14,37 @@ body {
 h1 {
     font-family: 'Rhodium Libre', serif;
     color: #25e70c;
-    font-size: 10rem;
+    font-size: 6rem;
     text-align: center;
     opacity: 0.4;
+}
+
+form {
+    max-width: 100%;
+    width: 400px;
+    margin: auto;
+}
+
+.input {
+    font-size: 2rem;
+    padding: 1rem 2rem;
+    display: block;
+    width: 100%;
+}
+
+.input::placeholder {
+    color: #b5b5b5;
+}
+
+.todos {
+    background-color: #fff;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.todos li {
+    font-size: 1.5rem;
+    padding: 1rem 2rem;
+
 }
