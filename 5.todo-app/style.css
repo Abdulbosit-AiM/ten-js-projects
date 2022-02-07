@@ -17,6 +17,7 @@ body {
     color: #444;
 }
 h1 {
+    margin: 0.5rem 0 0.25rem;
     font-family: 'Rhodium Libre', serif;
     color: #25e70c;
     font-size: 6rem;
