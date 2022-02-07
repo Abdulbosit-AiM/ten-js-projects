@@ -10,6 +10,11 @@ body {
     margin: 0;
     font-family: 'Inria Sans', sans-serif;
     background-color: #efefef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #444;
 }
 h1 {
     font-family: 'Rhodium Libre', serif;
@@ -23,17 +28,20 @@ form {
     max-width: 100%;
     width: 400px;
     margin: auto;
+    box-shadow: 0 4px 10px rgba( 0, 0, 0, 0.1);
 }
 
 .input {
+    border: none;
     font-size: 2rem;
     padding: 1rem 2rem;
     display: block;
     width: 100%;
+    color: #444;
 }
 
 .input::placeholder {
-    color: #b5b5b5;
+    color: #d5d5d5;
 }
 
 .todos {
@@ -45,6 +53,17 @@ form {
 
 .todos li {
     font-size: 1.5rem;
+    cursor: pointer;
     padding: 1rem 2rem;
+    border-top: 1px solid #e5e5e5;
+}
+.todos li.completed {
+    text-decoration: line-through;
+    color: #b6b6b6;
+}
 
+small {
+    color: #b5b5b5;
+    margin: 3rem 0 0;
+    text-align: center;
 }
