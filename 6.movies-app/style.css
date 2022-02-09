@@ -16,7 +16,16 @@ header {
     display: flex;
     padding: 1.5rem;
     justify-content: flex-end;
+    position: relative;
 }
+h2 {
+    position: absolute;
+    top: 0.8rem;
+    left: 45%;
+    color: #eee;
+}
+
+
 
 .search {
     padding: 0.5rem 1rem;
@@ -85,7 +94,7 @@ main {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.908);
     padding: 2rem;
     transform: translateY(100%);
     transition: all 0.4s ease-in;
@@ -109,7 +118,7 @@ footer > .button {
     background-color: chartreuse;
     color: black;
     left: 2rem;
-    top: 2rem;
+    top: 1.2rem;
     text-transform: uppercase;
     font-weight: 700;
     border-radius: 100px;
@@ -121,4 +130,13 @@ footer > .button:hover {
 a {
     text-decoration: none;
     color: black;
+}
+
+@media (max-width: 720px) {
+    h2{
+        display: none;
+    }
+    footer > .button {
+        top: 4.3rem;
+    }
 }
