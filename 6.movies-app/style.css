@@ -36,6 +36,7 @@ header {
 main {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .movie {
@@ -45,6 +46,7 @@ main {
     background-color: #373b69;
     margin: 1rem;
     overflow: hidden;
+    position: relative;
 }
 
 .movie img {
@@ -77,3 +79,21 @@ main {
     color: #d30606;
 }
 
+.overview {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    padding: 2rem;
+    transform: translateY(100%);
+    transition: all 0.4s ease-in;
+    overflow: auto;
+}
+.movie:hover .overview{
+    transform: translateY(0);
+}
+.overview h4 {
+    margin-top: 0;
+}
