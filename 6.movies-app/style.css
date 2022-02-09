@@ -9,10 +9,37 @@ font-family: 'Inter', sans-serif;
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
-    background-color: #efefef;
+    background-color: #2a2d50;
+}
+main {
     display: flex;
+    flex-wrap: wrap;
+}
+
+.movie {
+    width: 300px;
+    border-radius: 3px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.4);
+    background-color: #373b69;
+    margin: 1rem;
+}
+
+.movie img {
+    max-width: 100%;
+}
+.movie-info {
+    color: #eee;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    color: #444;
+    padding: 0.5rem 1rem 1rem;
+    letter-spacing: 1px;
+}
+.movie h3  {
+    margin: 0;
+}
+.movie-info span{
+    background-color: #2a2d50;
+    border-radius: 3px;
+    padding: 0.25rem 0.5rem;
 }
