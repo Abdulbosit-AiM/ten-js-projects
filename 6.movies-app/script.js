@@ -2,6 +2,9 @@ const API_URL = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.
 const IMGPATH = 'https://image.tmdb.org/t/p/w1280'
 
 const main = document.querySelector('main')
+const form = document.querySelector('form')
+
+getMovies() 
 
 async function getMovies() {
     const resp = await fetch(API_URL)
@@ -19,7 +22,7 @@ async function getMovies() {
 
             <div class="movie-info">
                 <h3>${title}</h3>
-                <span>${vote_average}</span>
+                <span class="${getClassByRating(vote_average)}">${vote_average}</span>
             </div>
         `
         main.appendChild(movieEl)  
@@ -28,5 +31,14 @@ async function getMovies() {
     return respData
 }
 
-getMovies()
+function getClassByRating(vote) {
+    if(vote >= 8){
+        return 'green'
+    } else if(vote >= 5) {
+        return 'orange'
+    } else {
+        return 'red'
+    }
+}
+
 
