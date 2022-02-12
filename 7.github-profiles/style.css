@@ -11,5 +11,10 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: #054a5a;
     background-image: linear-gradient(19deg, #054a5a 0%, #820dbb 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 
 }
