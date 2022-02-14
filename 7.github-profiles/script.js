@@ -25,7 +25,7 @@ async function getRepos(username) {
 function createUserCard(user) {
     const cardHTML = `
         <div class="card">    
-            <div class="img-container">
+            <div>
                 <img class="avatar" src="${user.avatar_url}" alt="${user.name}">
             </div>
             <div class="user-info">
