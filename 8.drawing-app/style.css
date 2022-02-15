@@ -10,9 +10,7 @@ body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
    
-    background-color: #FEE140;
-    background-image: linear-gradient(90deg, #FEE140 0%, #FA709A 100%);
-
+    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,6 +19,31 @@ body {
 }
 
 canvas {
-    width: 100vw;
-    height: 100vh;
+    /* width: 500px;
+    height: 500px; */
+    border: 2px solid #FA709A;
+    background-color: #fff;
+}
+
+.toolbox {
+    background-color: greenyellow;
+    width: 804px;
+    padding: 1rem;
+    display: flex;
+    background-color: #FEE140;
+    background-image: linear-gradient(90deg, #FEE140 0%, #FA709A 100%);
+
+}
+
+.toolbox > * {
+    
+    border: none;
+    padding: 0.25rem;
+    font-size: 2rem;
+    height: 50px;
+    width: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.5rem;
 }
