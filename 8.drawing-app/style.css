@@ -47,3 +47,7 @@ canvas {
     justify-content: center;
     margin-right: 0.5rem;
 }
+
+.toolbox > *:last-child {
+    margin-left: auto;
+}
