@@ -7,10 +7,82 @@ font-family: 'Inter', sans-serif;
 }
 
 body {
+    height: 100vh;
     margin: 0;
     font-family: 'Inter', sans-serif;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: flex-end;
+
+    color: white;
+    background-color: #FA8BFF;
+    background-image: linear-gradient(45deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);
+}
+.pw {
+    background-color: #2BFF88;
+    display: flex;
+    font-size: 1.5rem;
     align-items: center;
+    height: 70px;
+    width: 100%;
+    padding: 1rem;
+    position: relative;
+    /* overflow: auto; */
+}
+.pw-container {
+    min-width: 400px;
+    background-color: #17914c;
+    margin: 0 auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.pw-header {
+    height: 70px;
+    padding: 1rem;
+    position: relative;
+}
+.pw button {
+    border: none;
+    padding: 0.25rem 0.5rem;
+    background-color: #FA8BFF;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: translate(0, 20%);
+    color: white;
+    font-family: inherit;
+    font-size: 1rem;
+    opacity: 0;
+    transition: all 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+.pw:hover button {
+    opacity: 1;
+    transform: translate(0, 0%);
+
+}
+.pw-body {
+    padding: 1rem;
+}
+
+.form-control {
+    color: #eee;
+    display: flex;
+    justify-content: space-between;
+    margin: 0.75rem 0;
+}
+
+.generate{
+    background-color: #FA8BFF;
+    color: white;
+    display: block;
+    font-weight: bold;
+    padding: 0.75rem;
+    font-size: 1.5rem;
+    border: none;
+    width: 100%;
+    margin-top: 1rem;
+    cursor: pointer;
 }

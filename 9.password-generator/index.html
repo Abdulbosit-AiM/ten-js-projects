@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Generator</title>
+    <link rel="shortcut icon" href="./password.png" type="image/x-icon">
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/f206fb5119.js" crossorigin="anonymous"></script>
     <!-- Custom styles -->
     <link rel="stylesheet" href="style.css">
     <!-- JavaScript -->
@@ -12,11 +15,38 @@
 </head>
 <body>
     
+    <div class="pw-container">
+        <div class="pw-header">
+            <div class="pw">
+                <span id="pw">kytF%^%D7670t8</span>
+                <button id="copy"> <i class="fas fa-clipboard"></i> Copy </button>
+            </div>
+        </div>
+        <div class="pw-body">
+            <div class="form-control">
+                <label for="len">Password Length</label>
+                <input type="number" id="len" value="15" min="8" max="30">
+            </div>
+            <div class="form-control">
+                <label for="upper">Contain Uppercase Letters</label>
+                <input type="checkbox" id="upper">
+            </div>
+            <div class="form-control">
+                <label for="lower">Contain Lowercase Letters</label>
+                <input type="checkbox" id="lower">
+            </div>
+            <div class="form-control">
+                <label for="number">Contain Numbers</label>
+                <input type="checkbox" id="number">
+            </div>
+            <div class="form-control">
+                <label for="symbol">Contain Symbols</label>
+                <input type="checkbox" id="symbol">
+            </div>
+            <button class="generate" id="generate">Generate</button>
+        </div>
 
-
-
-
-
+    </div>
 
 
 </body>
