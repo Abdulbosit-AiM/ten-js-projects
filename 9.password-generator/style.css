@@ -86,3 +86,37 @@ body {
     margin-top: 1rem;
     cursor: pointer;
 }
+
+
+footer > .button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    position: absolute;
+    padding: 10px 20px;
+    background-color: chartreuse;
+    color: black;
+    left: 2rem;
+    top: 1.2rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 100px;
+}
+footer > .button:hover {
+    background-color: hsl(90, 90%, 50%);
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+@media (max-width: 720px) {
+    h2{
+        display: none;
+    }
+    footer > .button {
+        top: 4.3rem;
+    }
+}
