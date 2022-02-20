@@ -1,7 +1,8 @@
 # 10 simple apps using Vanilla JS
 ## Apps:
  1. Countdown Timer
+2. Quiz app
 
 
-- title icon
-[Project icons created by SBTS2018 - Flaticon](https://www.flaticon.com/free-icons/project)
+- title icons
+[Project icons created by Flaticon](https://www.flaticon.com/free-icons/project)
