@@ -9,6 +9,44 @@
     <!-- Custom styles -->
     <link rel="stylesheet" href="./0.base/css-reset.css">
     <link rel="stylesheet" href="./0.base/style.css">
+    <style>
+        body{
+            font-weight: bold;
+            overflow: hidden;
+        }
+        main {
+            padding: 100px 0 70px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        h1, h2, li {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        ol li {
+            list-style:decimal;
+        }
+        .col {
+            background:none;
+            box-shadow: none;
+            color: black;
+            transition: all 0.2s;
+            box-shadow: none;
+        }
+        .col:hover {
+            box-shadow: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            font-size: 2rem;
+        }
+        h2 {
+            font-size: 1.125rem;
+        }
+    </style>
     <!-- JQuery & Script -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="./0.base/script.js"></script>
@@ -33,7 +71,7 @@
                 
                     <div class="mob-nav">
                         <a href="#">ABOUT</a>
-                        <a href="#">PRICING</a>
+                        <!-- <a href="#">PRICING</a> -->
                         <a href="#">CONTACT</a>
                     </div>
                 </div>
@@ -41,7 +79,42 @@
         </header>
 
         <main class="about">
-
+            <h1>Ten JavaScript Projects</h1>
+            <h2>
+                It is a website like project meant to showcase some of the things I have practiced.
+            </h2>
+            <ol>
+                <li>
+                    <a href="./1.countdown-timer/index.html" class="col">Countdown Timer</a>
+                </li>
+                <li>
+                    <a href="./2.quiz-app/index.html" class="col">Quiz app</a>
+                </li>
+                <li>
+                    <a href="./3.recipe-app/index.html" class="col">Recipe app</a>
+                </li>
+                <li>
+                    <a href="./4.notes-app/index.html" class="col">Notes app</a>
+                </li>
+                <li>
+                    <a href="./5.todo-app/index.html" class="col hide-mobile">ToDo app</a>
+                </li>
+                <li>
+                    <a href="./6.movies-app/index.html" class="col hide-mobile">Movies app</a>
+                </li>
+                <li>
+                    <a href="./7.github-profiles/index.html" class="col hide-mobile">GitHub Profiles app</a>
+                </li>
+                <li>
+                    <a href="./8.drawing-app/index.html" class="col hide-mobile">Drawing app</a>
+                </li>
+                <li>
+                    <a href="./9.password-generator/index.html" class="col hide-mobile">Password Generator app</a>
+                </li>
+                <li>
+                    <a href="./10.weather-app/index.html" class="col hide-mobile">Weather app</a>
+                </li>
+            </ol>
         </main>
              
         <footer>
