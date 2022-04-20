@@ -1,7 +1,7 @@
 const quizData = [
     {
         question: 'How old is Abdulbosit?',
-        a: '21',
+        a: '22',
         b: '17',
         c: '26',
         d: '100',
