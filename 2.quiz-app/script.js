@@ -1,7 +1,23 @@
+// Calculate the current age dynamically
+function getCurrentAge() {
+    const birthDate = new Date(2000, 1, 3); // Month is 0-indexed, so 1 = February
+    const today = new Date();
+    
+    let age = today.getFullYear() - birthDate.getFullYear();
+    
+    // Adjust age if birthday hasn't occurred yet this year
+    if (today.getMonth() < birthDate.getMonth() || 
+        (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    
+    return age;
+}
+
 const quizData = [
     {
         question: 'How old is Abdulbosit?',
-        a: '22',
+        a: getCurrentAge().toString(),
         b: '17',
         c: '26',
         d: '100',
