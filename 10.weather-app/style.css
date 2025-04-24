@@ -11,12 +11,43 @@ body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(-225deg, #c5c5c5, #979494);
+    background-image: url('default-background.jpeg'); /* Fallback image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    transition: background-image 0.5s ease-in-out;
+    font-family: Arial, sans-serif;
+    color: #fff;
 
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
 }
+
+/* Attribution styling */
+.attribution {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: #fff;
+    display: none; /* Hidden by default */
+  }
+  
+  .attribution a {
+    color: #fff;
+    text-decoration: underline;
+  }
+  
+  .attribution a:hover {
+    color: #ddd;
+  }
+
 form {
     margin: 0 0 2rem;
 }
