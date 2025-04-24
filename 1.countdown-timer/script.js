@@ -60,7 +60,7 @@ function initCountdown() {
         if (diff <= 0) {
             if (daysEl) daysEl.textContent = '00';
             if (hoursEl) hoursEl.textContent = '00';
-            if (minsEl) minsEl.textContent = '00';
+            if (minsEl) daysEl.textContent = '00';
             if (secondsEl) secondsEl.textContent = '00';
             return;
         }
