@@ -1,78 +1,71 @@
-// New Year Timer with proper countdown for all time units
+// Complete New Year Timer Solution
 
-// Get DOM elements
-const daysEl = document.getElementById('days');
-const hoursEl = document.getElementById('hours');
-const minsEl = document.getElementById('mins');
-const secondsEl = document.getElementById('seconds');
-const yearDisplay = document.getElementById('year-display'); // Element to display the target year
-
-// Function to get the next New Year date
-function getNextNewYear() {
-    const now = new Date();
-    const currentYear = now.getFullYear();
+// Function to initialize the countdown timer
+function initCountdown() {
+    // Reference all countdown elements
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minsEl = document.getElementById('mins');
+    const secondsEl = document.getElementById('seconds');
+    const yearDisplayEl = document.getElementById('year-display');
     
-    // Create date for next year's New Year
-    const nextNewYear = new Date(currentYear + 1, 0, 1, 0, 0, 0, 0);
+    // Log elements to check if they're found correctly
+    console.log("Elements:", { daysEl, hoursEl, minsEl, secondsEl, yearDisplayEl });
     
-    return nextNewYear;
-}
-
-// Function to update the countdown
-function updateCountdown() {
-    const now = new Date();
-    const newYearDate = getNextNewYear();
-    
-    // Display the target year
-    const targetYear = newYearDate.getFullYear();
-    if (yearDisplay) {
-        yearDisplay.textContent = targetYear;
+    // Function to calculate next New Year
+    function getNextNewYear() {
+        const now = new Date();
+        return new Date(now.getFullYear() + 1, 0, 1); // January 1st of next year
     }
     
-    // Calculate remaining time in milliseconds
-    const timeDiff = newYearDate - now;
+    // Target date for the countdown
+    const nextNewYear = getNextNewYear();
+    console.log("Counting down to:", nextNewYear.toLocaleString());
     
-    // Handle case when countdown reaches zero
-    if (timeDiff <= 0) {
-        daysEl.innerHTML = "00";
-        hoursEl.innerHTML = "00";
-        minsEl.innerHTML = "00";
-        secondsEl.innerHTML = "00";
-        
-        // Refresh the page after a short delay to reset the countdown
-        setTimeout(() => {
-            location.reload();
-        }, 10000); // Reload after 10 seconds
-        
-        return;
+    // Update target year display if element exists
+    if (yearDisplayEl) {
+        yearDisplayEl.textContent = nextNewYear.getFullYear();
     }
     
-    // Calculate all time components
-    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+    // Function to update the countdown values
+    function updateCountdown() {
+        // Current time
+        const now = new Date();
+        
+        // Time difference in milliseconds
+        const diff = nextNewYear - now;
+        
+        // Convert to time units
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        // Format numbers (add leading zeros)
+        const formatNumber = (num) => num < 10 ? `0${num}` : num;
+        
+        // Update DOM (with null checks)
+        if (daysEl) daysEl.textContent = formatNumber(days);
+        if (hoursEl) hoursEl.textContent = formatNumber(hours);
+        if (minsEl) minsEl.textContent = formatNumber(mins);
+        if (secondsEl) secondsEl.textContent = formatNumber(seconds);
+        
+        // Log current values for debugging
+        console.log(`Countdown: ${formatNumber(days)}:${formatNumber(hours)}:${formatNumber(mins)}:${formatNumber(seconds)}`);
+    }
     
-    // Update the DOM with proper formatting
-    daysEl.innerHTML = formatTime(days);
-    hoursEl.innerHTML = formatTime(hours);
-    minsEl.innerHTML = formatTime(minutes);
-    secondsEl.innerHTML = formatTime(seconds);
+    // Initial update
+    updateCountdown();
     
-    // Log for debugging
-    console.log(`${formatTime(days)}:${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`);
+    // Set interval to update every second
+    return setInterval(updateCountdown, 1000);
 }
 
-// Function to add leading zeros
-function formatTime(time) {
-    return time < 10 ? `0${time}` : time;
+// Start the countdown when the document is loaded
+document.addEventListener('DOMContentLoaded', initCountdown);
+
+// Alternative: If you're adding this script at the end of your HTML body
+// or if DOMContentLoaded has already fired, call initCountdown directly
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initCountdown();
 }
-
-// Initial call
-updateCountdown();
-
-// Update the countdown EVERY SECOND
-setInterval(updateCountdown, 1000);
-
-// For debugging - log the target date
-console.log("Target New Year:", getNextNewYear().toLocaleString());
