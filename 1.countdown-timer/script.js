@@ -1,4 +1,4 @@
-// Completely revised New Year Timer that correctly counts to the next upcoming New Year
+// New Year Timer with proper countdown for all time units
 
 // Get DOM elements
 const daysEl = document.getElementById('days');
@@ -12,15 +12,10 @@ function getNextNewYear() {
     const now = new Date();
     const currentYear = now.getFullYear();
     
-    // Create date for this year's New Year (January 1st of current year)
-    const thisNewYear = new Date(currentYear, 0, 1, 0, 0, 0, 0);
-    
-    // Create date for next year's New Year (January 1st of next year)
+    // Create date for next year's New Year
     const nextNewYear = new Date(currentYear + 1, 0, 1, 0, 0, 0, 0);
     
-    // If current date is before this year's New Year, count to this year
-    // Otherwise count to next year
-    return now < thisNewYear ? thisNewYear : nextNewYear;
+    return nextNewYear;
 }
 
 // Function to update the countdown
@@ -34,12 +29,11 @@ function updateCountdown() {
         yearDisplay.textContent = targetYear;
     }
     
-    // Calculate remaining time
+    // Calculate remaining time in milliseconds
     const timeDiff = newYearDate - now;
     
     // Handle case when countdown reaches zero
     if (timeDiff <= 0) {
-        // Show celebration message or animation
         daysEl.innerHTML = "00";
         hoursEl.innerHTML = "00";
         minsEl.innerHTML = "00";
@@ -48,7 +42,7 @@ function updateCountdown() {
         // Refresh the page after a short delay to reset the countdown
         setTimeout(() => {
             location.reload();
-        }, 10000); // Reload after 10 seconds of celebration
+        }, 10000); // Reload after 10 seconds
         
         return;
     }
@@ -64,6 +58,9 @@ function updateCountdown() {
     hoursEl.innerHTML = formatTime(hours);
     minsEl.innerHTML = formatTime(minutes);
     secondsEl.innerHTML = formatTime(seconds);
+    
+    // Log for debugging
+    console.log(`${formatTime(days)}:${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`);
 }
 
 // Function to add leading zeros
@@ -71,11 +68,11 @@ function formatTime(time) {
     return time < 10 ? `0${time}` : time;
 }
 
-// Initial call to set up the countdown target
+// Initial call
 updateCountdown();
 
-// Update the countdown every second
+// Update the countdown EVERY SECOND
 setInterval(updateCountdown, 1000);
 
-// Log the target date to console for debugging
-console.log("Counting down to:", getNextNewYear().toString());
+// For debugging - log the target date
+console.log("Target New Year:", getNextNewYear().toLocaleString());
