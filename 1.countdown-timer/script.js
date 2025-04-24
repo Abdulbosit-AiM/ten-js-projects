@@ -1,4 +1,4 @@
-// Dynamic New Year Timer that always counts to the next upcoming New Year
+// Completely revised New Year Timer that correctly counts to the next upcoming New Year
 
 // Get DOM elements
 const daysEl = document.getElementById('days');
@@ -9,25 +9,23 @@ const yearDisplay = document.getElementById('year-display'); // Element to displ
 
 // Function to get the next New Year date
 function getNextNewYear() {
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
+    const now = new Date();
+    const currentYear = now.getFullYear();
     
-    // Create a date object for January 1st of next year
-    const nextNewYear = new Date(currentYear + 1, 0, 1); // Month is 0-indexed, so 0 = January
+    // Create date for this year's New Year (January 1st of current year)
+    const thisNewYear = new Date(currentYear, 0, 1, 0, 0, 0, 0);
     
-    // Check if we've already passed New Year's day of the current year
-    // If we're currently in January 1st, we count to next year
-    if (currentDate.getMonth() === 0 && currentDate.getDate() === 1) {
-        // If it's January 1st, count to next year
-        nextNewYear.setFullYear(currentYear + 1);
-    }
+    // Create date for next year's New Year (January 1st of next year)
+    const nextNewYear = new Date(currentYear + 1, 0, 1, 0, 0, 0, 0);
     
-    return nextNewYear;
+    // If current date is before this year's New Year, count to this year
+    // Otherwise count to next year
+    return now < thisNewYear ? thisNewYear : nextNewYear;
 }
 
 // Function to update the countdown
 function updateCountdown() {
-    const currentDate = new Date();
+    const now = new Date();
     const newYearDate = getNextNewYear();
     
     // Display the target year
@@ -37,23 +35,31 @@ function updateCountdown() {
     }
     
     // Calculate remaining time
-    const totalSeconds = (newYearDate - currentDate) / 1000;
+    const timeDiff = newYearDate - now;
     
-    // Handle case when New Year has been reached
-    if (totalSeconds <= 0) {
-        // Refresh to get the new target year
+    // Handle case when countdown reaches zero
+    if (timeDiff <= 0) {
+        // Show celebration message or animation
+        daysEl.innerHTML = "00";
+        hoursEl.innerHTML = "00";
+        minsEl.innerHTML = "00";
+        secondsEl.innerHTML = "00";
+        
+        // Refresh the page after a short delay to reset the countdown
         setTimeout(() => {
-            updateCountdown();
-        }, 1000);
+            location.reload();
+        }, 10000); // Reload after 10 seconds of celebration
+        
         return;
     }
     
-    const days = Math.floor(totalSeconds / 3600 / 24);
-    const hours = Math.floor(totalSeconds / 3600) % 24;
-    const minutes = Math.floor(totalSeconds / 60) % 60;
-    const seconds = Math.floor(totalSeconds) % 60;
+    // Calculate all time components
+    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
     
-    // Update the DOM
+    // Update the DOM with proper formatting
     daysEl.innerHTML = formatTime(days);
     hoursEl.innerHTML = formatTime(hours);
     minsEl.innerHTML = formatTime(minutes);
@@ -65,8 +71,11 @@ function formatTime(time) {
     return time < 10 ? `0${time}` : time;
 }
 
-// Initial update
+// Initial call to set up the countdown target
 updateCountdown();
 
 // Update the countdown every second
 setInterval(updateCountdown, 1000);
+
+// Log the target date to console for debugging
+console.log("Counting down to:", getNextNewYear().toString());
