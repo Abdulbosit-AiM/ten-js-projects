@@ -62,3 +62,4 @@
 10.weather-app/node_modules/whatwg-url/lib/url-state-machine.js
 10.weather-app/node_modules/whatwg-url/lib/URL.js
 10.weather-app/node_modules/whatwg-url/lib/utils.js
+.env
