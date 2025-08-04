@@ -330,18 +330,21 @@ class WeatherApp {
     async fetchBackgroundImage(city) {
         try {
             const response = await fetch(
-                `https://api.unsplash.com/search/photos?query=${encodeURIComponent(city + ' city')}&client_id=${this.unsplashApiKey}&per_page=1&orientation=landscape&w=800&h=600`
+                `https://api.unsplash.com/search/photos?query=${encodeURIComponent(city + ' city skyline')}&client_id=${this.unsplashApiKey}&per_page=1&orientation=landscape`
             );
             const data = await response.json();
             
             if (data.results && data.results.length > 0) {
                 const photo = data.results[0];
-                const imageUrl = photo.urls.regular; // Use regular instead of full for faster loading
+                const imageUrl = photo.urls.full; // Use full size for better coverage
                 const photographerName = photo.user.name;
                 const photographerUrl = photo.user.links.html;
 
                 // Set background image
-                document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${imageUrl})`;
+                document.body.style.backgroundImage = `url(${imageUrl})`;
+                document.body.style.backgroundSize = 'cover';
+                document.body.style.backgroundPosition = 'center';
+                document.body.style.backgroundAttachment = 'fixed';
 
                 // Update attribution
                 const attribution = document.querySelector('.attribution');
@@ -350,10 +353,14 @@ class WeatherApp {
 
                 // Trigger download event
                 await this.triggerUnsplashDownload(photo.id);
+            } else {
+                // Fallback to default gradient if no image found
+                document.body.style.backgroundImage = 'linear-gradient(135deg, #74b9ff 0%, #0984e3 50%, #6c5ce7 100%)';
             }
         } catch (error) {
             console.error('Error fetching background image:', error);
-            // Keep default background
+            // Fallback to default gradient on error
+            document.body.style.backgroundImage = 'linear-gradient(135deg, #74b9ff 0%, #0984e3 50%, #6c5ce7 100%)';
         }
     }
 

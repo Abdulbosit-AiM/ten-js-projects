@@ -140,12 +140,13 @@ body::before {
     min-height: 70px;
     width: 100%;
     padding: var(--spacing-4) var(--spacing-5);
-    position: relative;
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-md);
     word-break: break-all;
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     letter-spacing: 0.5px;
+    position: relative;
+    padding-right: 100px;
 }
 
 .pw-display {
@@ -153,6 +154,8 @@ body::before {
     min-height: 24px;
     display: flex;
     align-items: center;
+    width: 100%;
+    overflow: hidden;
 }
 
 .pw-display.placeholder {
@@ -160,45 +163,40 @@ body::before {
     font-style: italic;
     font-family: 'Inter', sans-serif;
     letter-spacing: normal;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
 }
 
 .copy-btn {
     border: none;
-    padding: var(--spacing-2) var(--spacing-3);
+    padding: var(--spacing-3) var(--spacing-4);
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
     color: white;
     border-radius: var(--border-radius-md);
     font-family: inherit;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     font-weight: 600;
     cursor: pointer;
     transition: all var(--transition-normal);
     display: flex;
     align-items: center;
     gap: var(--spacing-2);
-    opacity: 1;
-    transform: translateX(0);
-    margin-left: var(--spacing-2);
     position: absolute;
-    right: var(--spacing-3);
+    right: var(--spacing-4);
     top: 50%;
     transform: translateY(-50%);
-}
-
-.pw {
-    position: relative;
-    padding-right: 80px;
+    min-width: 80px;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
 }
 
 .copy-btn:hover {
     background: linear-gradient(135deg, var(--primary-hover) 0%, var(--primary-color) 100%);
-    transform: scale(1.05);
+    transform: translateY(-50%) scale(1.05);
     box-shadow: var(--shadow-md);
 }
 
 .copy-btn:active {
-    transform: scale(0.95);
+    transform: translateY(-50%) scale(0.95);
 }
 
 .pw-body {
@@ -481,6 +479,14 @@ body::before {
         font-size: 1rem;
         padding: var(--spacing-3) var(--spacing-4);
         min-height: 60px;
+        padding-right: 90px;
+    }
+    
+    .copy-btn {
+        font-size: 0.75rem;
+        padding: var(--spacing-2) var(--spacing-3);
+        min-width: 70px;
+        right: var(--spacing-3);
     }
     
     .pw-header,
@@ -523,11 +529,13 @@ body::before {
     
     .pw {
         font-size: 0.875rem;
+        padding-right: 80px;
     }
     
     .copy-btn {
         font-size: 0.625rem;
-        padding: var(--spacing-1) var(--spacing-1);
+        padding: var(--spacing-1) var(--spacing-2);
+        min-width: 60px;
         right: var(--spacing-2);
     }
     
