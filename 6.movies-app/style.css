@@ -377,27 +377,28 @@ main {
     position: fixed;
     top: var(--spacing-6);
     left: var(--spacing-6);
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
     color: white;
-    padding: var(--spacing-3) var(--spacing-6);
+    padding: var(--spacing-4) var(--spacing-6);
     border-radius: var(--border-radius-lg);
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-size: 1rem;
     transition: all var(--transition-normal);
     z-index: 1000;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
 }
 
 .back-button:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-    color: var(--primary-color);
+    box-shadow: var(--shadow-xl);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 /* Loading State */
@@ -514,8 +515,8 @@ main {
     .back-button {
         top: var(--spacing-4);
         left: var(--spacing-4);
-        padding: var(--spacing-2) var(--spacing-4);
-        font-size: 0.75rem;
+        padding: var(--spacing-3) var(--spacing-4);
+        font-size: 0.875rem;
     }
 }
 
@@ -532,6 +533,11 @@ main {
     
     .logo h2 {
         font-size: 1.5rem;
+    }
+    
+    .back-button {
+        padding: var(--spacing-2) var(--spacing-3);
+        font-size: 0.75rem;
     }
 }
 

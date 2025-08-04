@@ -319,27 +319,28 @@ small {
     position: fixed;
     top: var(--spacing-6);
     left: var(--spacing-6);
-    background: rgba(255, 255, 255, 0.9);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--neutral-800);
-    padding: var(--spacing-3) var(--spacing-6);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: var(--primary-color);
+    padding: var(--spacing-4) var(--spacing-6);
     border-radius: var(--border-radius-lg);
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-size: 1rem;
     transition: all var(--transition-normal);
     z-index: 1000;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
 }
 
 .back-button:hover {
     background: white;
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-    color: var(--primary-color);
+    box-shadow: var(--shadow-xl);
+    color: var(--primary-hover);
 }
 
 /* Empty state */
@@ -451,8 +452,8 @@ small {
     .back-button {
         top: var(--spacing-4);
         left: var(--spacing-4);
-        padding: var(--spacing-2) var(--spacing-4);
-        font-size: 0.75rem;
+        padding: var(--spacing-3) var(--spacing-4);
+        font-size: 0.875rem;
     }
     
     small {
