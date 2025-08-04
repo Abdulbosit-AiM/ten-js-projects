@@ -139,7 +139,7 @@ h1 {
 
 .big-text {
     font-weight: 800;
-    font-size: clamp(2rem, 6vw, 4rem);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
     line-height: 1;
     margin: 0;
     background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
@@ -148,6 +148,8 @@ h1 {
     background-clip: text;
     display: block;
     animation: pulse 2s ease-in-out infinite;
+    min-width: 0;
+    word-break: break-all;
 }
 
 .countdown-el span {
@@ -168,24 +170,30 @@ h1 {
     backdrop-filter: blur(20px);
     border: 2px solid rgba(255, 255, 255, 0.3);
     color: white;
-    padding: var(--spacing-4) var(--spacing-6);
-    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-6) var(--spacing-3);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
     text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
+    border: none;
+    color: white;
     transition: all var(--transition-normal);
     z-index: 1000;
     box-shadow: var(--shadow-lg);
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     display: flex;
     align-items: center;
     gap: var(--spacing-2);
+    cursor: pointer;
 }
 
 .back-button:hover {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%);
+    background: linear-gradient(135deg, var(--primary-hover) 0%, var(--primary-color) 100%);
     transform: translateY(-2px);
     box-shadow: var(--shadow-xl);
-    border-color: rgba(255, 255, 255, 0.5);
+    color: white;
 }
 
 /* Animations */
@@ -217,11 +225,12 @@ h1 {
     }
     
     .countdown-el {
-        padding: var(--spacing-6) var(--spacing-3);
+        padding: var(--spacing-4) var(--spacing-2);
+        min-height: 100px;
     }
     
     .big-text {
-        font-size: clamp(1.5rem, 8vw, 2.5rem);
+        font-size: clamp(1.2rem, 6vw, 1.8rem);
     }
     
     .countdown-el span {
@@ -248,11 +257,12 @@ h1 {
     }
     
     .big-text {
-        font-size: clamp(1.2rem, 6vw, 2rem);
+        font-size: clamp(1rem, 5vw, 1.5rem);
     }
     
     .countdown-el {
-        padding: var(--spacing-4) var(--spacing-2);
+        padding: var(--spacing-3) var(--spacing-1);
+        min-height: 80px;
     }
 }
 

@@ -242,10 +242,10 @@ button:active {
     position: fixed;
     top: var(--spacing-6);
     left: var(--spacing-6);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
     backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    color: var(--primary-color);
+    border: none;
+    color: white;
     padding: var(--spacing-4) var(--spacing-6);
     border-radius: var(--border-radius-lg);
     text-decoration: none;
@@ -257,13 +257,14 @@ button:active {
     display: flex;
     align-items: center;
     gap: var(--spacing-2);
+    cursor: pointer;
 }
 
 .back-button:hover {
-    background: white;
+    background: linear-gradient(135deg, var(--primary-hover) 0%, var(--primary-color) 100%);
     transform: translateY(-2px);
     box-shadow: var(--shadow-xl);
-    color: var(--primary-hover);
+    color: white;
 }
 
 /* Results styling */
