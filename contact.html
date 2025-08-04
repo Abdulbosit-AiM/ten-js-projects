@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Abdulbosit Melikuziev - Connect on social media and professional networks">
     <title>CONTACT</title>
     <link rel="shortcut icon" href="./0.base/project.png" type="image/x-icon">
     <!-- Custom styles -->
     <link rel="stylesheet" href="./0.base/css-reset.css">
     <link rel="stylesheet" href="./0.base/style.css">
-    <!-- JQuery & Script -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Modern Vanilla JS -->
     <script src="./0.base/script.js"></script>
 </head>
 <body>
@@ -29,7 +31,7 @@
                 </nav>
     
                 <div class="mob-wrapper">
-                    <img src="./0.base/icon-burger-menu.svg" alt="Burger Menu icon" style="width: 40px" class="burger-menu">
+                    <img src="./0.base/icon-burger-menu.svg" alt="Menu" style="width: 40px" class="burger-menu" aria-expanded="false" role="button" tabindex="0">
                 
                     <div class="mob-nav">
                         <a href="./about.html">ABOUT</a>
@@ -95,7 +97,9 @@
         </main>
 
         <footer>
-            <div class="foot-container">&copy; copyrights for materials go their respective owners</div>
+            <div class="foot-container">
+                &copy; 2025 Abdulbosit Melikuziev. Built with modern Vanilla JavaScript.
+            </div>
         </footer>
     </div>    
 
@@ -103,19 +107,24 @@
     .social-media-section {
       margin: 40px 0;
       text-align: center;
+      padding: var(--spacing-8);
+      background: white;
+      border-radius: var(--border-radius-xl);
+      box-shadow: var(--shadow-md);
     }
     
     .social-media-section h3 {
       margin-bottom: 20px;
       font-size: 24px;
-      color: #333;
+      color: var(--neutral-800);
+      font-weight: 600;
     }
     
     .social-links {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: var(--spacing-6);
     }
     
     .social-link {
@@ -123,28 +132,46 @@
       flex-direction: column;
       align-items: center;
       text-decoration: none;
-      color: #333;
-      transition: transform 0.3s ease, color 0.3s ease;
-      padding: 10px;
+      color: var(--neutral-700);
+      transition: all var(--transition-normal);
+      padding: var(--spacing-4);
+      border-radius: var(--border-radius-lg);
+      background: var(--neutral-50);
+      border: 1px solid var(--neutral-200);
+      min-width: 100px;
     }
     
     .social-link:hover {
-      transform: translateY(-5px);
-      color: #0077cc;
+      transform: translateY(-4px);
+      color: var(--primary-color);
+      background: white;
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-color);
     }
     
     .social-icon {
-      margin-bottom: 8px;
+      margin-bottom: var(--spacing-2);
+      transition: all var(--transition-fast);
+    }
+    
+    .social-link:hover .social-icon {
+      transform: scale(1.1);
     }
     
     .social-link span {
       font-size: 14px;
+      font-weight: 500;
     }
     
     /* Responsive adjustments */
     @media (max-width: 768px) {
       .social-links {
-        gap: 15px;
+        gap: var(--spacing-4);
+      }
+      
+      .social-link {
+        min-width: 80px;
+        padding: var(--spacing-3);
       }
     }
   </style>
