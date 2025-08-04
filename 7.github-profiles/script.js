@@ -77,14 +77,17 @@ class GitHubProfilesApp {
     }
 
     async getUser(username) {
+        this.showLoading();
+
+        // Check cache first
         if (this.cache.has(username)) {
             const cachedData = this.cache.get(username);
-            this.createUserCard(cachedData.user);
-            this.addReposToCard(cachedData.repos);
-            return;
+            if (Date.now() - cachedData.timestamp < 300000) { // 5 minutes cache
+                this.createUserCard(cachedData.user);
+                this.addReposToCard(cachedData.repos);
+                return;
+            }
         }
-
-        this.showLoading();
 
         try {
             const [userResp, reposResp] = await Promise.all([
@@ -93,7 +96,12 @@ class GitHubProfilesApp {
             ]);
 
             if (!userResp.ok) {
-                throw new Error(userResp.status === 404 ? 'User not found' : 'Failed to fetch user data');
+                if (userResp.status === 404) {
+                    // Try to suggest similar users
+                    await this.suggestSimilarUsers(username);
+                    return;
+                }
+                throw new Error('Failed to fetch user data');
             }
 
             const [userData, reposData] = await Promise.all([
@@ -102,7 +110,11 @@ class GitHubProfilesApp {
             ]);
 
             // Cache the data
-            this.cache.set(username, { user: userData, repos: reposData });
+            this.cache.set(username, { 
+                user: userData, 
+                repos: reposData,
+                timestamp: Date.now()
+            });
             
             this.currentUser = userData;
             this.createUserCard(userData);
@@ -112,6 +124,47 @@ class GitHubProfilesApp {
             console.error('Error fetching user data:', error);
             this.showError(error.message);
         }
+    }
+
+    async suggestSimilarUsers(username) {
+        try {
+            // Search for users with similar names
+            const searchResp = await fetch(`https://api.github.com/search/users?q=${encodeURIComponent(username)}&per_page=5`);
+            const searchData = await searchResp.json();
+            
+            if (searchData.items && searchData.items.length > 0) {
+                this.showSuggestions(username, searchData.items);
+            } else {
+                this.showError(`User "${username}" not found`);
+            }
+        } catch (error) {
+            this.showError(`User "${username}" not found`);
+        }
+    }
+
+    showSuggestions(searchTerm, suggestions) {
+        this.elements.main.innerHTML = `
+            <div class="suggestions-container">
+                <div class="error-message">
+                    <h3>⚠️ User "${searchTerm}" not found</h3>
+                    <p>Did you mean one of these users?</p>
+                </div>
+                <div class="suggestions-grid">
+                    ${suggestions.map(user => `
+                        <div class="suggestion-card" onclick="githubApp.getUser('${user.login}')">
+                            <img src="${user.avatar_url}" alt="${user.login}" class="suggestion-avatar">
+                            <div class="suggestion-info">
+                                <h4>${user.login}</h4>
+                                <p>Score: ${user.score.toFixed(0)}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                <button onclick="githubApp.getUser('Abdulbosit-AiM')" class="try-default-btn">
+                    Try Default Profile
+                </button>
+            </div>
+        `;
     }
 
     showLoading() {
@@ -321,6 +374,90 @@ class GitHubProfilesApp {
             .user-info a:hover {
                 color: var(--secondary-color) !important;
                 text-decoration: underline;
+            }
+            
+            .suggestions-container {
+                text-align: center;
+                padding: var(--spacing-8);
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: var(--border-radius-xl);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(20px);
+            }
+            
+            .error-message {
+                margin-bottom: var(--spacing-6);
+                color: var(--error-color);
+            }
+            
+            .error-message h3 {
+                margin: 0 0 var(--spacing-2);
+                font-size: 1.25rem;
+            }
+            
+            .error-message p {
+                margin: 0;
+                color: var(--neutral-300);
+            }
+            
+            .suggestions-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: var(--spacing-4);
+                margin-bottom: var(--spacing-6);
+            }
+            
+            .suggestion-card {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: var(--border-radius-lg);
+                padding: var(--spacing-4);
+                cursor: pointer;
+                transition: all var(--transition-normal);
+                display: flex;
+                align-items: center;
+                gap: var(--spacing-3);
+            }
+            
+            .suggestion-card:hover {
+                background: rgba(255, 255, 255, 0.1);
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-md);
+            }
+            
+            .suggestion-avatar {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                border: 2px solid var(--primary-color);
+            }
+            
+            .suggestion-info h4 {
+                margin: 0;
+                color: white;
+                font-size: 1rem;
+            }
+            
+            .suggestion-info p {
+                margin: 0;
+                color: var(--neutral-400);
+                font-size: 0.875rem;
+            }
+            
+            .try-default-btn {
+                background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+                color: white;
+                border: none;
+                padding: var(--spacing-3) var(--spacing-6);
+                border-radius: var(--border-radius-lg);
+                font-weight: 600;
+                cursor: pointer;
+                transition: all var(--transition-fast);
+            }
+            
+            .try-default-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-md);
             }
         `;
         document.head.appendChild(style);

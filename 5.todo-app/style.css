@@ -213,10 +213,9 @@ form {
 }
 
 .todos li:hover {
-    background: linear-gradient(135deg, var(--neutral-50) 0%, var(--primary-color) 0%, var(--primary-hover) 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
     color: white;
-    transform: translateX(8px);
-    padding-left: calc(var(--spacing-8) + 8px);
+    transform: translateX(4px);
 }
 
 .todos li:hover::before {
@@ -440,7 +439,7 @@ small {
     }
     
     .todos li:hover {
-        padding-left: calc(var(--spacing-6) + 8px);
+        transform: translateX(2px);
     }
     
     .stats {

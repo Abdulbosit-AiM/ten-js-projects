@@ -81,7 +81,7 @@ img {
 
 .mobile-container {
     width: 100%;
-    max-width: 400px;
+    max-width: 1200px;
     overflow: hidden;
     border-radius: var(--border-radius-xl);
     background: white;
@@ -242,9 +242,12 @@ header button:hover {
 }
 
 .meals {
-    max-height: 60vh;
+    max-height: 70vh;
     overflow-y: auto;
     padding: var(--spacing-4);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-6);
 }
 
 .meals::-webkit-scrollbar {
@@ -266,7 +269,7 @@ header button:hover {
 }
 
 .meal {
-    margin-bottom: var(--spacing-6);
+    margin-bottom: 0;
     box-shadow: var(--shadow-md);
     border-radius: var(--border-radius-xl);
     cursor: pointer;
@@ -538,7 +541,12 @@ header button:hover {
     }
     
     .mobile-container {
-        max-width: 100%;
+        max-width: 400px;
+    }
+    
+    .meals {
+        grid-template-columns: 1fr;
+        max-height: 60vh;
     }
     
     header {

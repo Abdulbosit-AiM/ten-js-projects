@@ -330,13 +330,13 @@ class WeatherApp {
     async fetchBackgroundImage(city) {
         try {
             const response = await fetch(
-                `https://api.unsplash.com/search/photos?query=${encodeURIComponent(city + ' city')}&client_id=${this.unsplashApiKey}&per_page=1&orientation=landscape`
+                `https://api.unsplash.com/search/photos?query=${encodeURIComponent(city + ' city')}&client_id=${this.unsplashApiKey}&per_page=1&orientation=landscape&w=800&h=600`
             );
             const data = await response.json();
             
             if (data.results && data.results.length > 0) {
                 const photo = data.results[0];
-                const imageUrl = photo.urls.full;
+                const imageUrl = photo.urls.regular; // Use regular instead of full for faster loading
                 const photographerName = photo.user.name;
                 const photographerUrl = photo.user.links.html;
 

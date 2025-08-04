@@ -266,6 +266,8 @@ class MoviesApp {
             box-shadow: var(--shadow-xl);
         `;
 
+        const trailerUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(movie.title + ' trailer')}`;
+
         modalContent.innerHTML = `
             <button class="close-modal" style="
                 position: absolute;
@@ -308,6 +310,9 @@ class MoviesApp {
                     <p style="line-height: 1.6; color: var(--neutral-200); margin-bottom: var(--spacing-6);">
                         ${movie.overview || 'No overview available for this movie.'}
                     </p>
+                    <a href="${trailerUrl}" target="_blank" class="trailer-btn">
+                        🎬 Watch Trailer
+                    </a>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: var(--spacing-4);">
                         <div class="meta-item">
                             <div class="label">Popularity</div>

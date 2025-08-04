@@ -160,31 +160,35 @@ body::before {
     font-style: italic;
     font-family: 'Inter', sans-serif;
     letter-spacing: normal;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
 }
 
 .copy-btn {
     border: none;
-    padding: var(--spacing-2) var(--spacing-4);
+    padding: var(--spacing-2) var(--spacing-3);
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
     color: white;
     border-radius: var(--border-radius-md);
     font-family: inherit;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
     transition: all var(--transition-normal);
     display: flex;
     align-items: center;
     gap: var(--spacing-2);
-    opacity: 0;
-    transform: translateX(10px);
-    margin-left: var(--spacing-3);
-}
-
-.pw:hover .copy-btn {
     opacity: 1;
     transform: translateX(0);
+    margin-left: var(--spacing-2);
+    position: absolute;
+    right: var(--spacing-3);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.pw {
+    position: relative;
+    padding-right: 80px;
 }
 
 .copy-btn:hover {
@@ -522,8 +526,9 @@ body::before {
     }
     
     .copy-btn {
-        font-size: 0.75rem;
-        padding: var(--spacing-1) var(--spacing-2);
+        font-size: 0.625rem;
+        padding: var(--spacing-1) var(--spacing-1);
+        right: var(--spacing-2);
     }
     
     .back-button {

@@ -1,9 +1,9 @@
-// Enhanced Quiz Application with Modern JavaScript
+// Enhanced Quiz Application with Dynamic Math Questions
 class QuizApp {
     constructor() {
         this.currentQuiz = 0;
         this.score = 0;
-        this.quizData = this.initializeQuizData();
+        this.quizData = this.generateMathQuestions(10);
         this.elements = {};
         this.userAnswers = [];
         
@@ -17,72 +17,118 @@ class QuizApp {
         this.addVisualEffects();
     }
 
-    initializeQuizData() {
-        return [
-            {
-                question: 'How old is Abdulbosit?',
-                a: this.getCurrentAge().toString(),
-                b: '17',
-                c: '26',
-                d: '100',
-                correct: 'a'
-            },
-            {
-                question: 'What was the most used programming language in 2021?',
-                a: 'Java',
-                b: 'C#',
-                c: 'Python',
-                d: 'JavaScript',
-                correct: 'c'
-            },
-            {
-                question: 'What is the capital of Egypt?',
-                a: 'Nile',
-                b: 'Giza',
-                c: 'Cheops',
-                d: 'Cairo',
-                correct: 'd'
-            },
-            {
-                question: 'Who is the founder of Microsoft?',
-                a: 'Abdulbosit',
-                b: 'Paul Allen',
-                c: 'Bill Gates',
-                d: 'Steve Jobs',
-                correct: 'c'
-            },
-            {
-                question: 'What does HTML stand for?',
-                a: 'Hypertext Markup Language',
-                b: 'Cascading Style Sheets',
-                c: 'JavaScript Object Notation',
-                d: 'North Atlantic Treaty Organization',
-                correct: 'a'
-            },
-            {
-                question: 'When was JavaScript launched?',
-                a: '1996',
-                b: '1995',
-                c: '1994',
-                d: 'none of the above',
-                correct: 'b'
-            }
+    generateMathQuestions(count) {
+        const questions = [];
+        const questionTypes = [
+            'addition', 'subtraction', 'multiplication', 'division',
+            'fraction_addition', 'fraction_subtraction', 'percentage'
         ];
+
+        for (let i = 0; i < count; i++) {
+            const type = questionTypes[Math.floor(Math.random() * questionTypes.length)];
+            questions.push(this.createMathQuestion(type));
+        }
+
+        return questions;
     }
 
-    getCurrentAge() {
-        const birthDate = new Date(2000, 1, 3); // Month is 0-indexed, so 1 = February
-        const today = new Date();
+    createMathQuestion(type) {
+        const num1 = Math.floor(Math.random() * 100);
+        const num2 = Math.floor(Math.random() * 99) + 1; // Avoid division by zero
+        let question, correctAnswer, options;
+
+        switch (type) {
+            case 'addition':
+                correctAnswer = num1 + num2;
+                question = `What is ${num1} + ${num2}?`;
+                break;
+            
+            case 'subtraction':
+                const larger = Math.max(num1, num2);
+                const smaller = Math.min(num1, num2);
+                correctAnswer = larger - smaller;
+                question = `What is ${larger} - ${smaller}?`;
+                break;
+            
+            case 'multiplication':
+                const mult1 = Math.floor(Math.random() * 12) + 1;
+                const mult2 = Math.floor(Math.random() * 12) + 1;
+                correctAnswer = mult1 * mult2;
+                question = `What is ${mult1} × ${mult2}?`;
+                break;
+            
+            case 'division':
+                const divisor = Math.floor(Math.random() * 12) + 1;
+                const quotient = Math.floor(Math.random() * 12) + 1;
+                const dividend = divisor * quotient;
+                correctAnswer = quotient;
+                question = `What is ${dividend} ÷ ${divisor}?`;
+                break;
+            
+            case 'fraction_addition':
+                const frac1 = Math.floor(Math.random() * 9) + 1;
+                const frac2 = Math.floor(Math.random() * 9) + 1;
+                const denom = Math.floor(Math.random() * 8) + 2;
+                correctAnswer = frac1 + frac2;
+                question = `What is ${frac1}/${denom} + ${frac2}/${denom}? (numerator only)`;
+                break;
+            
+            case 'fraction_subtraction':
+                const f1 = Math.floor(Math.random() * 9) + 5;
+                const f2 = Math.floor(Math.random() * 4) + 1;
+                const d = Math.floor(Math.random() * 8) + 2;
+                correctAnswer = f1 - f2;
+                question = `What is ${f1}/${d} - ${f2}/${d}? (numerator only)`;
+                break;
+            
+            case 'percentage':
+                const percent = [10, 20, 25, 50, 75][Math.floor(Math.random() * 5)];
+                const number = Math.floor(Math.random() * 80) + 20;
+                correctAnswer = (percent / 100) * number;
+                question = `What is ${percent}% of ${number}?`;
+                break;
+        }
+
+        // Generate wrong options
+        options = this.generateOptions(correctAnswer);
         
-        let age = today.getFullYear() - birthDate.getFullYear();
+        return {
+            question,
+            a: options[0].toString(),
+            b: options[1].toString(),
+            c: options[2].toString(),
+            d: options[3].toString(),
+            correct: options.indexOf(correctAnswer) === 0 ? 'a' : 
+                    options.indexOf(correctAnswer) === 1 ? 'b' :
+                    options.indexOf(correctAnswer) === 2 ? 'c' : 'd'
+        };
+    }
+
+    generateOptions(correct) {
+        const options = [correct];
         
-        // Adjust age if birthday hasn't occurred yet this year
-        if (today.getMonth() < birthDate.getMonth() || 
-            (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) {
-            age--;
+        while (options.length < 4) {
+            let wrong;
+            if (correct < 10) {
+                wrong = Math.floor(Math.random() * 20);
+            } else if (correct < 100) {
+                wrong = correct + Math.floor(Math.random() * 20) - 10;
+            } else {
+                wrong = correct + Math.floor(Math.random() * 40) - 20;
+            }
+            
+            if (wrong !== correct && wrong >= 0 && !options.includes(wrong)) {
+                options.push(wrong);
+            }
         }
         
-        return age;
+        // Shuffle options
+        for (let i = options.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [options[i], options[j]] = [options[j], options[i]];
+        }
+        
+        return options;
     }
 
     cacheElements() {
@@ -331,7 +377,7 @@ class QuizApp {
         
         this.elements.quiz.innerHTML = `
             <div class="quiz-results fade-in">
-                <h2>Quiz Complete! 🎉</h2>
+                <h2>Math Quiz Complete! 🎉</h2>
                 <div class="score-display">${this.score}/${this.quizData.length}</div>
                 <p style="font-size: 1.25rem; margin: var(--spacing-4) 0; color: var(--neutral-600);">
                     You scored ${percentage}% - ${grade.message}

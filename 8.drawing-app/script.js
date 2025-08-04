@@ -6,8 +6,11 @@ class DrawingApp {
         this.isPressed = false;
         this.size = 30;
         this.color = '#000000';
+        this.tool = 'brush'; // brush, circle, rectangle, arrow
         this.x = undefined;
         this.y = undefined;
+        this.startX = undefined;
+        this.startY = undefined;
         this.history = [];
         this.historyStep = -1;
         this.strokeCount = 0;
@@ -27,6 +30,7 @@ class DrawingApp {
         this.cacheElements();
         this.setupEventListeners();
         this.createPresetColors();
+        this.createToolSelector();
         this.addVisualEffects();
         this.setupKeyboardShortcuts();
         this.saveState();
@@ -123,6 +127,17 @@ class DrawingApp {
                 this.changeSize(-5);
             }
             
+            // Tool shortcuts
+            if (e.key === 'b' || e.key === 'B') {
+                this.setTool('brush');
+            } else if (e.key === 'c' || e.key === 'C') {
+                this.setTool('circle');
+            } else if (e.key === 'r' || e.key === 'R') {
+                this.setTool('rectangle');
+            } else if (e.key === 'a' || e.key === 'A') {
+                this.setTool('arrow');
+            }
+            
             // Number keys for preset colors
             const num = parseInt(e.key);
             if (num >= 1 && num <= this.presetColors.length) {
@@ -159,10 +174,14 @@ class DrawingApp {
         this.isPressed = true;
         this.x = e.offsetX;
         this.y = e.offsetY;
+        this.startX = e.offsetX;
+        this.startY = e.offsetY;
         
-        // Start a new path
-        this.ctx.beginPath();
-        this.ctx.moveTo(this.x, this.y);
+        if (this.tool === 'brush') {
+            // Start a new path for brush
+            this.ctx.beginPath();
+            this.ctx.moveTo(this.x, this.y);
+        }
         
         this.canvas.classList.add('drawing');
         this.strokeCount++;
@@ -171,8 +190,15 @@ class DrawingApp {
     stopDrawing() {
         if (this.isPressed) {
             this.isPressed = false;
+            
+            if (this.tool !== 'brush') {
+                this.drawShape();
+            }
+            
             this.x = undefined;
             this.y = undefined;
+            this.startX = undefined;
+            this.startY = undefined;
             this.canvas.classList.remove('drawing');
             this.saveState();
             this.updateStats();
@@ -185,23 +211,100 @@ class DrawingApp {
         const x2 = e.offsetX;
         const y2 = e.offsetY;
 
-        // Draw line
-        this.ctx.globalCompositeOperation = 'source-over';
+        if (this.tool === 'brush') {
+            // Draw line
+            this.ctx.globalCompositeOperation = 'source-over';
+            this.ctx.strokeStyle = this.color;
+            this.ctx.lineWidth = this.size;
+            this.ctx.lineTo(x2, y2);
+            this.ctx.stroke();
+
+            // Draw circle at current position for smoother lines
+            this.ctx.beginPath();
+            this.ctx.arc(x2, y2, this.size / 2, 0, Math.PI * 2);
+            this.ctx.fillStyle = this.color;
+            this.ctx.fill();
+            this.ctx.beginPath();
+            this.ctx.moveTo(x2, y2);
+
+            this.x = x2;
+            this.y = y2;
+        } else {
+            // For shapes, just update current position
+            this.x = x2;
+            this.y = y2;
+        }
+    }
+
+    drawShape() {
         this.ctx.strokeStyle = this.color;
         this.ctx.lineWidth = this.size;
-        this.ctx.lineTo(x2, y2);
-        this.ctx.stroke();
-
-        // Draw circle at current position for smoother lines
-        this.ctx.beginPath();
-        this.ctx.arc(x2, y2, this.size / 2, 0, Math.PI * 2);
         this.ctx.fillStyle = this.color;
-        this.ctx.fill();
-        this.ctx.beginPath();
-        this.ctx.moveTo(x2, y2);
 
-        this.x = x2;
-        this.y = y2;
+        switch (this.tool) {
+            case 'circle':
+                this.drawCircle();
+                break;
+            case 'rectangle':
+                this.drawRectangle();
+                break;
+            case 'arrow':
+                this.drawArrow();
+                break;
+        }
+    }
+
+    drawCircle() {
+        const radius = Math.sqrt(Math.pow(this.x - this.startX, 2) + Math.pow(this.y - this.startY, 2));
+        this.ctx.beginPath();
+        this.ctx.arc(this.startX, this.startY, radius, 0, Math.PI * 2);
+        this.ctx.stroke();
+    }
+
+    drawRectangle() {
+        const width = this.x - this.startX;
+        const height = this.y - this.startY;
+        this.ctx.beginPath();
+        this.ctx.rect(this.startX, this.startY, width, height);
+        this.ctx.stroke();
+    }
+
+    drawArrow() {
+        const headLength = 20;
+        const angle = Math.atan2(this.y - this.startY, this.x - this.startX);
+        
+        // Draw line
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.startX, this.startY);
+        this.ctx.lineTo(this.x, this.y);
+        this.ctx.stroke();
+        
+        // Draw arrowhead
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.x, this.y);
+        this.ctx.lineTo(
+            this.x - headLength * Math.cos(angle - Math.PI / 6),
+            this.y - headLength * Math.sin(angle - Math.PI / 6)
+        );
+        this.ctx.moveTo(this.x, this.y);
+        this.ctx.lineTo(
+            this.x - headLength * Math.cos(angle + Math.PI / 6),
+            this.y - headLength * Math.sin(angle + Math.PI / 6)
+        );
+        this.ctx.stroke();
+    }
+
+    setTool(tool) {
+        this.tool = tool;
+        this.updateToolButtons();
+        this.showNotification(`Tool: ${tool.charAt(0).toUpperCase() + tool.slice(1)}`, 'info');
+    }
+
+    updateToolButtons() {
+        document.querySelectorAll('.tool-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelector(`[data-tool="${this.tool}"]`)?.classList.add('active');
     }
 
     changeSize(delta) {
@@ -295,6 +398,33 @@ class DrawingApp {
         toolbox.insertBefore(colorGroup, lastGroup);
         
         this.updatePresetColorSelection();
+    }
+
+    createToolSelector() {
+        const toolbox = document.querySelector('.toolbox');
+        const toolGroup = document.createElement('div');
+        toolGroup.className = 'tool-group tool-selector';
+        
+        const tools = [
+            { name: 'brush', icon: '🖌️', key: 'B' },
+            { name: 'circle', icon: '⭕', key: 'C' },
+            { name: 'rectangle', icon: '⬜', key: 'R' },
+            { name: 'arrow', icon: '➡️', key: 'A' }
+        ];
+        
+        tools.forEach(tool => {
+            const toolBtn = document.createElement('button');
+            toolBtn.className = `tool-btn ${tool.name === 'brush' ? 'active' : ''}`;
+            toolBtn.setAttribute('data-tool', tool.name);
+            toolBtn.innerHTML = tool.icon;
+            toolBtn.title = `${tool.name.charAt(0).toUpperCase() + tool.name.slice(1)} (${tool.key})`;
+            toolBtn.addEventListener('click', () => this.setTool(tool.name));
+            toolGroup.appendChild(toolBtn);
+        });
+        
+        // Insert after color group
+        const colorGroup = toolbox.querySelector('.preset-colors');
+        toolbox.insertBefore(toolGroup, colorGroup.nextSibling);
     }
 
     updatePresetColorSelection() {
@@ -482,6 +612,32 @@ class DrawingApp {
                     opacity: 1;
                     transform: translateY(0);
                 }
+            }
+            
+            .tool-btn {
+                background: rgba(255, 255, 255, 0.1);
+                border: 2px solid rgba(255, 255, 255, 0.2);
+                color: white;
+                width: 40px;
+                height: 40px;
+                border-radius: var(--border-radius-md);
+                cursor: pointer;
+                font-size: 1.25rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all var(--transition-fast);
+            }
+            
+            .tool-btn:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: scale(1.05);
+            }
+            
+            .tool-btn.active {
+                background: var(--primary-color);
+                border-color: var(--primary-color);
+                transform: scale(1.1);
             }
         `;
         document.head.appendChild(style);
